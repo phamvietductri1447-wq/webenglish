@@ -1,0 +1,9 @@
+name = "lexiquest-ai"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+# Model miễn phí của Gemini. Nếu bị lỗi 404, đổi sang tên model Flash mới nhất trong AI Studio.
+MODEL = "gemini-2.5-flash"
+# Sau khi có link GitHub Pages, đổi thành đúng origin của bạn, ví dụ https://tenban.github.io
+ALLOWED_ORIGIN = "*"
