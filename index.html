@@ -2,14 +2,245 @@
 <html lang="vi"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>LexiQuest – Học tiếng Anh B1–C2</title>
-<link rel="stylesheet" href="style.css"></head>
+<style>
+:root{--bg:#f3f4fb;--card:#fff;--tx:#1b1f3b;--mu:#69708f;--br:#e2e5f2;--ac:#6c5ce7;--ok:#16a34a;--no:#e11d48;--wa:#f59e0b;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d0f1f;--card:#171a31;--tx:#eceefc;--mu:#9aa1c9;--br:#272b4b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d0f1f;--card:#171a31;--tx:#eceefc;--mu:#9aa1c9;--br:#272b4b;color-scheme:dark}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh}
+#app{max-width:1040px;margin:0 auto;padding:16px}
+.top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.logo{font-weight:800;font-size:22px;background:linear-gradient(90deg,#6c5ce7,#00b8a9);-webkit-background-clip:text;background-clip:text;color:transparent;cursor:pointer}
+.sp{flex:1}.chip{background:var(--card);border:1px solid var(--br);border-radius:99px;padding:4px 12px;font-size:14px}
+button{font:inherit;color:inherit;cursor:pointer}
+.btn{background:var(--ac);color:#fff;border:0;border-radius:12px;padding:10px 18px;font-weight:600;transition:transform .15s,opacity .15s}
+.btn:hover{transform:translateY(-2px)}.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn.g{background:var(--card);color:var(--tx);border:1px solid var(--br)}
+.card{background:var(--card);border:1px solid var(--br);border-radius:18px;padding:18px;margin-bottom:16px;animation:in .35s both}
+@keyframes in{from{opacity:0;transform:translateY(10px)}}
+h2{margin:0 0 12px;font-size:18px}h3{margin:0 0 6px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.tile{background:var(--bg);border-radius:14px;padding:12px}.tile b{font-size:24px;display:block}.tile span{color:var(--mu);font-size:13px}
+.modes{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.mode{border:0;text-align:left;border-radius:18px;padding:18px;color:#fff;background:linear-gradient(135deg,var(--a),var(--b));transition:transform .2s,box-shadow .2s;min-height:130px}
+.mode:hover{transform:translateY(-4px) rotate(-.5deg);box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.mode i{font-style:normal;font-size:30px}.mode b{display:block;font-size:17px}.mode small{opacity:.9}
+.bars{display:flex;align-items:flex-end;gap:6px;height:130px}
+.bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;font-size:11px;color:var(--mu)}
+.bar div{width:100%;background:var(--br);border-radius:6px 6px 0 0;position:relative;transition:height .5s;min-height:2px}
+.bar div u{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(var(--ac),#00b8a9);border-radius:6px 6px 0 0}
+.row{display:flex;align-items:center;gap:10px;margin:6px 0;font-size:14px}.row .l{width:120px}.meter{flex:1;height:8px;background:var(--br);border-radius:9px;overflow:hidden}.meter div{height:100%;background:var(--ac);transition:width .5s}
+.two{display:grid;gap:16px;grid-template-columns:1fr 1fr}@media(max-width:700px){.two{grid-template-columns:1fr}}
+.lv{display:flex;gap:8px;flex-wrap:wrap}.lv button{flex:1;min-width:110px;border:2px solid var(--br);background:var(--card);border-radius:14px;padding:12px}.lv button.on{border-color:var(--ac);background:rgba(108,92,231,.15)}
+.modal{position:fixed;inset:0;background:rgba(5,6,20,.6);display:flex;align-items:center;justify-content:center;padding:16px;z-index:9}.modal .card{max-width:520px;width:100%;max-height:90vh;overflow:auto}
+input[type=number],input[type=text],textarea{width:100%;background:var(--bg);color:var(--tx);border:1px solid var(--br);border-radius:12px;padding:10px;font:inherit}
+textarea{min-height:130px}
+.prog{height:10px;background:var(--br);border-radius:9px;overflow:hidden;margin:8px 0 14px}.prog div{height:100%;background:linear-gradient(90deg,#6c5ce7,#00b8a9);transition:width .4s}
+.q{font-size:20px;line-height:1.7}.blank{display:inline-block;min-width:70px;border-bottom:3px solid var(--ac);text-align:center;color:var(--ac)}
+.opt{display:block;width:100%;text-align:left;background:var(--card);border:2px solid var(--br);border-radius:14px;padding:12px 14px;margin:8px 0;transition:all .2s}
+.opt:hover:not(:disabled){border-color:var(--ac);transform:translateX(4px)}.opt.ok{border-color:var(--ok);background:rgba(22,163,74,.15)}.opt.no{border-color:var(--no);background:rgba(225,29,72,.14)}
+.shake{animation:sh .4s}@keyframes sh{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.pop{animation:pp .4s}@keyframes pp{50%{transform:scale(1.03)}}
+.fb{border-left:5px solid var(--ok)}.fb.bad{border-left-color:var(--no)}.fb p{margin:6px 0}
+.tag{display:inline-block;padding:2px 10px;border-radius:99px;margin:3px;font-size:13px;border:1px solid var(--br)}
+.s-new{background:rgba(108,92,231,.18)}.s-lrn{background:rgba(245,158,11,.2)}.s-mas{background:rgba(22,163,74,.2)}.s-rev{background:rgba(225,29,72,.18)}
+.tag b{cursor:pointer;margin-left:6px;color:var(--mu)}
+.fly{position:fixed;pointer-events:none;font-size:22px;z-index:20;animation:fl .9s ease-out forwards}@keyframes fl{to{transform:translate(var(--x),var(--y)) rotate(200deg);opacity:0}}
+.mu{color:var(--mu);font-size:14px}.err{color:var(--no)}
+</style></head>
 <body><div id="app"></div>
-<script src="config.js"></script>
-<script src="core.js"></script>
-<script src="vocab.js"></script>
-<script src="views.js"></script>
-<script src="session.js"></script>
-<script src="ai.js"></script>
-<script src="quiz.js"></script>
-<script src="main.js"></script>
+<script>
+const CONFIG={API_URL:'https://lexiquest-ai.webductri.workers.dev'};
+
+const $=s=>document.querySelector(s),app=$('#app');
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let S={};try{S=JSON.parse(localStorage.getItem('lexi1'))||{}}catch(e){}
+if(typeof S!='object'||Array.isArray(S))S={};
+S=Object.assign({w:{},log:[],xp:0,theme:'',recent:[]},S);
+if(!S.w||typeof S.w!='object')S.w={};if(!Array.isArray(S.log))S.log=[];if(!Array.isArray(S.recent))S.recent=[];
+Object.keys(S.w).forEach(k=>{const x=S.w[k];if(!x||typeof x.w!='string'){delete S.w[k];return}S.w[k]=Object.assign({seen:0,right:0,wrong:0,box:0,due:0,lw:0,lv:[],added:0},x);if(!Array.isArray(S.w[k].lv))S.w[k].lv=[]});
+let noStore=false;
+const save=()=>{if(S.log.length>3000)S.log=S.log.slice(-3000);try{localStorage.setItem('lexi1',JSON.stringify(S));noStore=false}catch(e){noStore=true}};
+if(S.theme)document.documentElement.dataset.theme=S.theme;
+const LV={B1:'Intermediate',B2:'Upper Intermediate',C1:'Advanced',C2:'Proficiency'};
+const LVD={B1:'common everyday, study and work contexts; clear collocations; compound and some complex sentences',B2:'abstract and news topics; phrasal verbs; conditionals, passives, relative clauses',C1:'academic/formal register; nuanced collocations; inversion, participle and reduced clauses',C2:'sophisticated, idiomatic, literary or professional register; subtle connotation and near-synonyms'};
+const ALL=['ctx','syn','wf','col','err'];
+const MODES={
+ctx:{n:'Context Master',i:'🧩',d:'Điền từ vào câu dài, độ khó tăng dần',t:['ctx'],a:'#6c5ce7',b:'#a29bfe'},
+syn:{n:'Synonym Challenge',i:'🔀',d:'Chọn từ đồng nghĩa hợp ngữ cảnh',t:['syn'],a:'#0984e3',b:'#74b9ff'},
+wf:{n:'Word Transformation',i:'🧬',d:'Biến đổi từ loại (word formation)',t:['wf'],a:'#00a896',b:'#55efc4'},
+col:{n:'Collocation Master',i:'🔗',d:'Hoàn thành cụm từ IELTS, báo chí, công việc',t:['col'],a:'#e17055',b:'#fab1a0'},
+err:{n:'Error Detection',i:'🔍',d:'Tìm lỗi và chọn câu sửa đúng',t:['err'],a:'#d63031',b:'#ff7675'},
+chal:{n:'English Challenge',i:'⚡',d:'Trộn dạng câu, bấm giờ, điểm và streak',t:ALL,timed:1,a:'#f39c12',b:'#fdcb6e'},
+rec:{n:'Active Recall',i:'🧠',d:'Nhớ lại từ đã học, không gợi ý, ưu tiên từ hay sai',t:['rec'],a:'#6c5ce7',b:'#fd79a8'},
+rev:{n:'Ôn tập thông minh',i:'♻️',d:'Spaced repetition: chỉ các từ đến hạn / hay sai',t:ALL,a:'#2d3436',b:'#636e72'}};
+const SL=[0.007,1,3,7,14,30]; // days per Leitner box
+const st=x=>!x.seen?'new':(x.lw||x.due<=Date.now())?'rev':x.box>=4?'mas':'lrn';
+const SN={new:'New Words',lrn:'Learning',mas:'Mastered',rev:'Need Review'};
+const day=t=>new Date(t).toLocaleDateString('en-CA');
+const shuf=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const fmt=s=>s<60?s+'s':Math.round(s/60)+' phút';
+function dayStreak(){const d=new Set(S.log.map(l=>day(l.t)));let c=0,t=new Date();if(!d.has(day(t)))t.setDate(t.getDate()-1);while(d.has(day(t))){c++;t.setDate(t.getDate()-1)}return c}
+function stats(){const ws=Object.values(S.w),c={new:0,lrn:0,mas:0,rev:0};ws.forEach(x=>c[st(x)]++);
+const n=S.log.reduce((a,l)=>a+l.n,0),k=S.log.reduce((a,l)=>a+l.c,0),s=S.log.reduce((a,l)=>a+l.s,0);return{c,n,k,s,learned:ws.filter(x=>x.seen).length,all:ws.length}}
+
+// ---------- vocabulary import ----------
+function importWords(txt){const r={add:0,dup:0,bad:0};
+const VN=/[ăâđêôơưàáạảãèéẹẻẽìíịỉĩòóọỏõùúụủũỳýỵỷỹ]/i,OK=/^[\p{L}][\p{L}\p{M}'’ \-\/.()]*$/u;
+txt.split(/[\n\r,;\t]+/).map(s=>s.replace(/^\s*(\d+[.)]|[-•*])\s*/,'').split(/\s+[-–—]\s+|\s*[:=→]\s*/)[0].replace(/\s+/g,' ').trim()).filter(Boolean).forEach(w=>{
+if(w.length>60||w.split(' ').length>6||VN.test(w)||!OK.test(w)){r.bad++;return}
+const k=w.toLowerCase();if(S.w[k]){r.dup++;return}
+S.w[k]={w,seen:0,right:0,wrong:0,box:0,due:0,lw:0,lv:[],added:Date.now()};r.add++});save();return r}
+// ---------- views ----------
+function home(){closeM();homeBase();if(noStore)app.insertAdjacentHTML('afterbegin','<div class="card err">⚠️ Trình duyệt đang chặn lưu dữ liệu: tiến độ sẽ mất khi đóng trang.</div>')}
+function homeBase(){clearInterval(ses?.tm);ses=null;const t=stats(),acc=t.n?Math.round(t.k/t.n*100):0,st1=dayStreak();
+app.innerHTML=`<div class="top"><span class="logo" onclick="home()">✨ LexiQuest</span><span class="sp"></span>
+<span class="chip">🔥 ${st1} ngày</span><span class="chip">⭐ Lv ${Math.floor(Math.sqrt(S.xp/50))+1} · ${S.xp} XP</span>
+<button class="btn g" onclick="words()">📚 Từ vựng (${t.all})</button><button class="btn g" onclick="theme()">🌓</button></div>
+<div class="card"><h2>🎮 Chọn chế độ học</h2><p class="mu">Mỗi phiên học bạn sẽ chọn trình độ (B1–C2) và số câu. Từ lấy từ danh sách bạn nhập.</p>
+<div class="modes">${Object.entries(MODES).map(([k,m])=>`<button class="mode" style="--a:${m.a};--b:${m.b}" onclick="setup('${k}')"><i>${m.i}</i><b>${m.n}</b><small>${m.d}${k=='rev'?` (${t.c.rev} từ)`:''}</small></button>`).join('')}</div></div>
+<div class="card"><h2>📊 Dashboard</h2><div class="grid">
+${[['Từ đã học',t.learned],['Đã thành thạo',t.c.mas],['Cần ôn tập',t.c.rev],['Đang học',t.c.lrn],['Từ mới',t.c.new],['Tỷ lệ đúng',acc+'%'],['Thời gian học',fmt(t.s)],['Streak ngày',st1+' 🔥']].map(a=>`<div class="tile"><b>${a[1]}</b><span>${a[0]}</span></div>`).join('')}</div></div>
+<div class="card"><h2>📈 Tiến độ <button class="btn g" style="padding:2px 10px" onclick="per=per=='d'?'w':'d';home()">${per=='d'?'theo ngày':'theo tuần'}</button></h2>${chart()}</div>
+<div class="two"><div class="card"><h2>Theo level</h2>${grp('lvl',Object.keys(LV))}</div><div class="card"><h2>Theo chế độ</h2>${grp('mode',Object.keys(MODES))}</div></div>`}
+let per='d',ses=null;
+function chart(){const N=per=='d'?14:8,b=[];for(let i=N-1;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i*(per=='d'?1:7));b.push(d)}
+const key=t=>{const d=new Date(t);if(per=='d')return day(d);d.setDate(d.getDate()-((d.getDay()+6)%7));return day(d)};
+const wk=d=>{if(per=='d')return day(d);d=new Date(d);d.setDate(d.getDate()-((d.getDay()+6)%7));return day(d)};
+const m={};S.log.forEach(l=>{const k=key(l.t);m[k]=m[k]||{n:0,c:0};m[k].n+=l.n;m[k].c+=l.c});
+const rows=b.map(d=>({k:wk(d),l:per=='d'?d.getDate():'T'+day(d).slice(5),...(m[wk(d)]||{n:0,c:0})})),mx=Math.max(1,...rows.map(r=>r.n));
+return `<div class="bars">${rows.map(r=>`<div class="bar" title="${r.c}/${r.n} đúng">${r.n}<div style="height:${r.n/mx*85}%"><u style="height:${r.n?r.c/r.n*100:0}%"></u></div>${r.l}</div>`).join('')}</div><p class="mu">Cột = số câu đã làm, phần màu = số câu đúng.</p>`}
+function grp(f,keys){return keys.map(k=>{const L=S.log.filter(l=>l[f]==k),n=L.reduce((a,l)=>a+l.n,0),c=L.reduce((a,l)=>a+l.c,0),p=n?Math.round(c/n*100):0;
+const extra=f=='lvl'?` · ${Object.values(S.w).filter(x=>x.lv.includes(k)).length} từ`:'';
+return `<div class="row"><span class="l">${f=='mode'?MODES[k].i+' '+MODES[k].n.split(' ')[0]:k}</span><div class="meter"><div style="width:${p}%"></div></div><span style="width:110px" class="mu">${n?p+'% · '+n+' câu':'—'}${extra}</span></div>`}).join('')}
+function theme(){const d=document.documentElement,dark=getComputedStyle(d).colorScheme=='dark';S.theme=dark?'light':'dark';d.dataset.theme=S.theme;save()}
+function words(msg){closeM();const e=Object.entries(S.w);
+app.innerHTML=`<div class="top"><span class="logo" onclick="home()">✨ LexiQuest</span><span class="sp"></span><button class="btn g" onclick="home()">← Trang chủ</button></div>
+<div class="card"><h2>📚 Thêm từ vựng của bạn</h2><p class="mu">Dán danh sách (mỗi từ/cụm từ một dòng, hoặc ngăn cách bằng dấu phẩy). Từ trùng và dữ liệu không hợp lệ sẽ bị bỏ qua.</p>
+<textarea id="ta" placeholder="mitigate&#10;come to terms with&#10;ubiquitous"></textarea><p>${msg||''}</p><button class="btn" onclick="doImp()">Thêm vào danh sách</button></div>
+<div class="card"><h2>Danh sách (${e.length})</h2>${e.length?e.map(([k,x])=>`<span class="tag s-${st(x)}" title="${SN[st(x)]} · đúng ${x.right}/sai ${x.wrong}">${esc(x.w)}<b onclick="delW('${encodeURIComponent(k).replace(/'/g,'%27')}')">×</b></span>`).join('')+`<p><button class="btn g" onclick="if(confirm('Xóa toàn bộ từ vựng?')){S.w={};save();words()}">Xóa tất cả</button></p>`:'<p class="mu">Chưa có từ nào.</p>'}
+<p class="mu">Màu: tím=New, cam=Learning, xanh=Mastered, đỏ=Need Review.</p></div>`}
+function doImp(){const t=$('#ta').value.trim();if(!t)return words('<span class="err">Danh sách đang trống.</span>');
+const r=importWords(t);words(`Đã thêm <b>${r.add}</b> · trùng lặp bỏ qua <b>${r.dup}</b> · không hợp lệ <b>${r.bad}</b>`)}
+function delW(k){delete S.w[decodeURIComponent(k)];save();words()}
+
+// ---------- session setup ----------
+function setup(m){const M=MODES[m],pool=poolFor(m);
+if(!pool.length){const msg=m=='rev'?'Chưa có từ nào đến hạn ôn tập. Hãy học thêm ở các chế độ khác rồi quay lại.':m=='rec'?'Active Recall cần ít nhất một từ bạn đã học. Hãy chơi một chế độ khác trước.':'Bạn chưa thêm từ vựng nào.';
+return modal(`<h2>${M.i} ${M.n}</h2><p>${msg}</p>${m=='rev'||m=='rec'?'<button class="btn" onclick="closeM()">Đã hiểu</button>':'<button class="btn" onclick="words()">Thêm từ vựng</button>'}`)}
+window._m=m;window._l='';modal(`<h2>${M.i} ${M.n}</h2><p class="mu">${pool.length} từ khả dụng. Chọn trình độ cho phiên học này (không tự đổi giữa chừng):</p>
+<div class="lv">${Object.entries(LV).map(([k,v])=>`<button onclick="pickL('${k}',this)"><b>${k}</b><br><small>${v}</small></button>`).join('')}</div>
+<p>Số câu: <input type="number" id="cnt" min="3" max="40" value="10" style="width:90px"></p>
+<button class="btn" id="go" disabled onclick="start()">Bắt đầu</button> <button class="btn g" onclick="closeM()">Hủy</button>`)}
+function pickL(k,b){window._l=k;document.querySelectorAll('.lv button').forEach(x=>x.classList.remove('on'));b.classList.add('on');$('#go').disabled=false}
+function modal(h){closeM();const d=document.createElement('div');d.className='modal';d.id='md';d.innerHTML=`<div class="card">${h}</div>`;document.body.appendChild(d)}
+function closeM(){$('#md')?.remove()}
+function poolFor(m){const ws=Object.values(S.w);
+if(m=='rev')return ws.filter(x=>st(x)=='rev');if(m=='rec')return ws.filter(x=>x.seen);return ws}
+function rank(x){const s=st(x);return(s=='rev'?(x.lw?0:1):s=='new'?2:s=='lrn'?3:4)+Math.random()*.9+(x.seen?0:0)-Math.min(x.wrong,5)*.1}
+function start(){if(!window._l)return;const m=window._m,lvl=window._l,n=Math.max(3,Math.min(40,+$('#cnt').value||10)),M=MODES[m];closeM();
+const pool=poolFor(m).sort((a,b)=>rank(a)-rank(b)),items=[];
+for(let i=0;i<n;i++){const x=pool[i%pool.length];items.push({w:x.w,k:x.w.toLowerCase(),t:M.t.length>1?M.t[i%M.t.length]:M.t[0]})}
+const its=M.t.length>1?shuf(items):items;its.forEach((x,i)=>{if(M.t.length>1)x.t=M.t[i%M.t.length]});
+ses={m,lvl,M,n,qs:[],i:0,score:0,ok:0,done:0,streak:0,best:0,t0:Date.now(),chunks:[],fin:false,miss:[]};
+for(let i=0;i<its.length;i+=5)ses.chunks.push(its.slice(i,i+5));
+pump(ses);showQ()}
+
+// ---------- AI generation ----------
+const TYPE_RULES={
+ctx:'"q": ONE long sentence (25-45 words, several clauses) with a single blank "___" (or two blanks, then each option is "a / b"). The correct option is the target word in the right form. Distractors: same part of speech, similar register, plausible but wrong in collocation, meaning or grammar.',
+syn:'"q": a sentence containing the target word wrapped in *asterisks*, then " — closest in meaning here?". Options: 4 near-synonyms; exactly one fits this context best.',
+wf:'"q": a sentence with blank "___" followed by the ROOT in capitals in brackets, e.g. (DECIDE). Options: 4 derived forms of the root (noun/verb/adjective/adverb/negative). The target word is the root or the correct derivative.',
+col:'"q": a short phrase or sentence fragment with "___" missing, testing a collocation containing the target word (IELTS, news, academic or professional). Options: 4 words/phrases.',
+err:'"q": a sentence with exactly ONE error involving the target word (wrong word, collocation or grammar), prefixed "Choose the corrected sentence: ". Options: 4 full sentences; exactly one fully correct.',
+rec:'"q": a sentence with blank "___" where only the target word fits (no options). Also "accept": array of valid inflected forms/spellings of the answer. Fields "meaning" and "example" required; options/a not needed.'};
+async function genChunk(items,lvl,m){
+const spec=items.map((x,i)=>`${i+1}. target="${x.w}" type=${x.t}`).join('\n');
+const used=[...S.recent.slice(-12),...(ses?ses.qs.slice(-6).map(q=>q.q.slice(0,50)):[])].join(' | ');
+const p=`You are an expert EFL exam item writer. CEFR level: ${lvl} (${LVD[lvl]}). Write natural, modern English (academic, workplace, news, daily life). Never write trivial or translation-only items. ${m=='ctx'?'Difficulty rises gradually across items.':''}
+Return ONLY a JSON array (no markdown), one object per numbered item, in order. Fields: "word" (the target exactly as given),"type","q",${items.some(x=>x.t!='rec')?'"options" (4 strings),"a" (0-3 index of correct option),':''}"meaning" (Vietnamese + short English gloss of the target in this context),"why" (Vietnamese: why the answer is right),"wrong" (Vietnamese: why each other option fails, one short clause each),"colloc" (notable collocations/grammar pattern, Vietnamese explanation with English examples),"example" (a NEW English sentence using the target, followed by a Vietnamese translation in parentheses).
+Rules per type:\n${[...new Set(items.map(x=>x.t))].map(t=>t+': '+TYPE_RULES[t]).join('\n')}
+Avoid repeating these earlier stems: ${used||'none'}.
+Items:\n${spec}`;
+return await callAI(p)}
+function buildChunks(s,need){const pool=poolFor(s.m).sort((a,b)=>rank(a)-rank(b)),M=s.M,its=[];if(!pool.length)return[];
+for(let i=0;i<need;i++){const x=pool[i%pool.length];its.push({w:x.w,k:x.w.toLowerCase(),t:M.t[(i+s.qs.length)%M.t.length]})}
+const out=[];for(let i=0;i<its.length;i+=5)out.push(its.slice(i,i+5));return out}
+function normQ(q,it,s){if(!q||typeof q.q!='string'||!q.q.trim())return null;q.k=it.k;q.w=it.w;q.type=it.t;
+if(['ctx','wf','col','rec'].includes(it.t)&&!/_{3,}/.test(q.q))return null;
+if(it.t=='syn'&&!q.q.includes('*'))return null;
+if(!q.meaning)return null;
+if(it.t=='rec'){q.accept=(Array.isArray(q.accept)?q.accept:[]).concat(it.w).map(x=>String(x).toLowerCase().trim())}
+else{if(!Array.isArray(q.options)||q.options.length!=4)return null;q.options=q.options.map(x=>String(x??'').trim());
+if(q.options.some(x=>!x)||new Set(q.options.map(x=>x.toLowerCase())).size<4)return null;q.a=Number(q.a);if(!Number.isInteger(q.a)||q.a<0||q.a>3)return null;
+const sh=shuf(q.options.map((t,j)=>({t,r:j==q.a})));q.options=sh.map(x=>x.t);q.a=sh.findIndex(x=>x.r)}
+const stem=q.q.slice(0,60).toLowerCase();if(s.qs.some(z=>z.q.slice(0,60).toLowerCase()==stem)||S.recent.includes(stem))return null;
+S.recent.push(stem);if(S.recent.length>60)S.recent.shift();return q}
+async function pump(s){s.topups=s.topups||0;
+for(;;){
+while(s.chunks.length){if(s.dead||ses!==s)return;const items=s.chunks.shift();
+try{const r=await genChunk(items,s.lvl,s.m);if(s.dead||ses!==s)return;const arr=Array.isArray(r)?r:(r&&r.questions)||[],used=new Set();
+arr.forEach((q,i)=>{let ix=items.findIndex((x,j)=>!used.has(j)&&x.k==String(q&&q.word||'').toLowerCase().trim());if(ix<0&&i<items.length&&!used.has(i))ix=i;if(ix<0)return;used.add(ix);
+const z=normQ(q,items[ix],s);if(z)s.qs.push(z)});save()}
+catch(e){if(s.dead||ses!==s)return;s.err=e&&e.code?e:{code:'http',message:String(e&&e.message||e)};s.fin=true;if(s.wait)showQ();return}
+if(s.wait)showQ()}
+if(s.qs.length<s.n&&s.topups<2){s.topups++;s.chunks=buildChunks(s,s.n-s.qs.length);if(s.chunks.length)continue}
+break}
+if(s.dead||ses!==s)return;s.fin=true;if(s.wait)showQ()}
+async function callAI(prompt,tries=0){if(/YOUR-WORKER/.test(CONFIG.API_URL))throw{code:'unavailable',message:'Chưa cấu hình API_URL'};
+let r;try{r=await fetch(CONFIG.API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt})})}catch(e){throw{code:'unavailable',message:e.message}}
+if(r.status==429){if(tries<1){await new Promise(z=>setTimeout(z,8000));return callAI(prompt,tries+1)}throw{code:'rate_limited'}}
+if(!r.ok){let t='';try{t=(await r.text()).slice(0,200)}catch(e){}throw{code:'http',message:'HTTP '+r.status+' '+t}}
+try{const d=await r.json();return parseJSON(d.text)}catch(e){if(tries<1)return callAI(prompt,tries+1);throw{code:'parse'}}}
+function parseJSON(t){t=String(t||'').replace(/```json|```/g,'').trim();const i=t.indexOf('['),j=t.lastIndexOf(']');if(i<0||j<i)throw 0;return JSON.parse(t.slice(i,j+1))}
+// ---------- question UI ----------
+const fq=t=>esc(t).replace(/_{3,}/g,'<span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>').replace(/\*(.+?)\*/g,'<b>$1</b>');
+function head(){const s=ses,pct=s.done/s.n*100;return `<div class="top"><span class="logo" onclick="quit()">✨ LexiQuest</span><span class="chip">${s.M.i} ${s.M.n} · ${s.lvl}</span><span class="sp"></span><span class="chip">🎯 ${s.score}</span><span class="chip">🔥 ${s.streak}</span>${s.M.timed?'<span class="chip" id="tm">⏱</span>':''}<button class="btn g" onclick="quit()">Thoát</button></div><div class="prog"><div style="width:${pct}%"></div></div>`}
+function showQ(){const s=ses;if(!s)return;clearInterval(s.tm);s.wait=0;s.lock=0;
+if(s.fin&&!s.qs.length&&!s.err)s.err={code:'empty'};
+if(s.i>=s.n||(s.i>=s.qs.length&&s.fin&&!s.err))return finish();
+if(s.i>=s.qs.length){s.wait=1;s.q=null;if(s.err){const c=s.err.code;return app.innerHTML=head()+`<div class="card"><h2>⚠️ Không tạo được câu hỏi</h2><p class="err">${c=='unavailable'?'Không kết nối được máy chủ AI. Kiểm tra API_URL trong js/config.js và chắc chắn Worker đã được deploy.':c=='not_granted'?'Máy chủ AI từ chối yêu cầu. Kiểm tra cấu hình ALLOWED_ORIGIN.':c=='rate_limited'?'Đã chạm giới hạn tốc độ. Đợi một lát rồi thử lại.':c=='empty'||c=='parse'?'AI trả về dữ liệu không đúng định dạng. Hãy thử lại.':'Lỗi: '+esc(s.err.message||c)}</p><button class="btn" onclick="retry()">Thử lại</button> <button class="btn g" onclick="finish()">Kết thúc</button></div>`}
+return app.innerHTML=head()+`<div class="card"><h2>🤖 Claude đang soạn câu hỏi ${s.lvl}…</h2><p class="mu">Câu hỏi được tạo từ danh sách từ của bạn, thường mất vài giây.</p></div>`}
+const q=s.qs[s.i];s.q=q;s.t1=Date.now();const rec=q.type=='rec';
+app.innerHTML=head()+`<div class="card" id="qc"><p class="mu">Câu ${s.i+1}/${s.n} · ${{ctx:'Context',syn:'Synonym',wf:'Word Formation',col:'Collocation',err:'Error Detection',rec:'Active Recall'}[q.type]||''}</p><div class="q">${fq(q.q)}</div>
+${rec?`<p><input type="text" id="ans" placeholder="Nhập từ còn thiếu…" autocomplete="off"></p><button class="btn" onclick="chkRec()">Kiểm tra</button> <button class="btn g" onclick="hint()">💡 Gợi ý</button> <button class="btn g" onclick="giveUp()">Không nhớ</button><p class="mu" id="ht"></p>`:q.options.map((o,i)=>`<button class="opt" onclick="ans(${i})"><b>${'ABCD'[i]}.</b> ${esc(o)}</button>`).join('')}</div><div id="fb"></div>`;
+if(rec)$('#ans').focus();
+if(s.M.timed){s.left=25;const u=()=>{$('#tm').textContent='⏱ '+Math.ceil(s.left)+'s';};u();s.tm=setInterval(()=>{s.left-=.25;u();if(s.left<=0){clearInterval(s.tm);ans(-1)}},250)}}
+function retry(){const s=ses;if(!s)return;s.err=null;s.fin=false;s.topups=0;const need=s.n-s.qs.length;
+if(need<=0){s.fin=true;return showQ()}s.chunks=buildChunks(s,need);if(!s.chunks.length){s.fin=true;return showQ()}pump(s);showQ()}
+function nextQ(){if(!ses||!ses.lock)return;ses.lock=0;ses.i++;showQ()}
+function hint(){const w=ses.q.w;$('#ht').textContent=`Bắt đầu bằng “${w[0]}”, dài ${w.length} ký tự.`}
+function chkRec(){const v=$('#ans').value.trim().toLowerCase().replace(/\s+/g,' ');if(!v)return;grade(ses.q.accept.includes(v),-1,v)}
+function giveUp(){grade(false,-1,'')}
+function ans(i){if(ses.lock)return;grade(i==ses.q.a,i)}
+function grade(ok,i){const s=ses;if(s.lock)return;s.lock=1;clearInterval(s.tm);const q=s.q;
+const x=S.w[q.k];if(x){x.seen++;x.lv.includes(s.lvl)||x.lv.push(s.lvl);
+if(ok){x.right++;x.box=Math.min(5,x.box+1);x.lw=0}else{x.wrong++;x.box=Math.max(0,x.box-1);x.lw=1}x.due=Date.now()+SL[x.box]*864e5}
+s.done++;let pts=0;
+if(ok){s.ok++;s.streak++;s.best=Math.max(s.best,s.streak);pts=100+s.streak*10+(s.M.timed?Math.floor(s.left*4):0);s.score+=pts;S.xp+=10+Math.min(s.streak,10)}
+else{s.streak=0;S.xp+=1;s.miss.push(q.w)}
+save();
+if(q.type!='rec'){document.querySelectorAll('.opt').forEach((b,j)=>{b.disabled=true;if(j==q.a)b.classList.add('ok');else if(j==i)b.classList.add('no')})}
+else{const a=$('#ans');if(a)a.disabled=true}
+const qc=$('#qc');qc.classList.add(ok?'pop':'shake');if(ok)burst();
+$('#fb').innerHTML=`<div class="card fb ${ok?'':'bad'}"><h2>${ok?'✅ Chính xác! +'+pts:i==-1&&s.M.timed&&s.left<=0?'⏰ Hết giờ':'❌ Chưa đúng'}</h2>
+${q.type=='rec'?`<p><b>Đáp án:</b> ${esc(q.w)}</p>`:`<p><b>Đáp án:</b> ${esc(q.options[q.a])}</p>`}
+<p><b>📖 Nghĩa trong ngữ cảnh:</b> ${esc(q.meaning)}</p>${q.why?`<p><b>💡 Vì sao đúng:</b> ${esc(q.why)}</p>`:''}${q.wrong?`<p><b>🚫 Các phương án còn lại:</b> ${esc(q.wrong)}</p>`:''}${q.colloc?`<p><b>🔗 Collocation / ngữ pháp:</b> ${esc(q.colloc)}</p>`:''}${q.example?`<p><b>✍️ Ví dụ khác:</b> ${esc(q.example)}</p>`:''}
+<button class="btn" id="nx" onclick="nextQ()">Tiếp tục ↵</button></div>`;
+$('#nx').focus();head&&(document.querySelector('.prog div').style.width=s.done/s.n*100+'%')}
+function burst(){const e=['✨','🎉','⭐','💫'],r=$('#qc').getBoundingClientRect();for(let i=0;i<12;i++){const f=document.createElement('span');f.className='fly';f.textContent=e[i%4];f.style.left=r.left+r.width/2+'px';f.style.top=r.top+40+'px';f.style.setProperty('--x',(Math.random()*300-150)+'px');f.style.setProperty('--y',(Math.random()*-200-20)+'px');document.body.appendChild(f);setTimeout(()=>f.remove(),950)}}
+function logSes(){const s=ses;if(s.logged)return;s.logged=1;if(s.done>0)S.log.push({t:Date.now(),lvl:s.lvl,mode:s.m,n:s.done,c:s.ok,s:Math.round((Date.now()-s.t0)/1000)});save()}
+function quit(){if(ses&&ses.done>0&&!confirm('Thoát phiên học? Kết quả đã làm vẫn được lưu.'))return;if(ses){ses.dead=1;logSes()}home()}
+function finish(){const s=ses;if(!s)return;clearInterval(s.tm);s.dead=1;logSes();if(!s.done)return home();const n=s.done,p=n?Math.round(s.ok/n*100):0;
+app.innerHTML=`<div class="top"><span class="logo" onclick="home()">✨ LexiQuest</span></div><div class="card" style="text-align:center"><h2>${p>=80?'🏆 Xuất sắc!':p>=50?'👍 Khá tốt!':'💪 Tiếp tục cố gắng!'}</h2>
+<div class="grid"><div class="tile"><b>${s.score}</b><span>Điểm</span></div><div class="tile"><b>${s.ok}/${n}</b><span>Đúng</span></div><div class="tile"><b>${p}%</b><span>Chính xác</span></div><div class="tile"><b>${s.best}🔥</b><span>Streak tốt nhất</span></div><div class="tile"><b>${fmt(Math.round((Date.now()-s.t0)/1000))}</b><span>Thời gian</span></div></div>
+${s.miss.length?`<p>Từ cần ôn: ${[...new Set(s.miss)].map(w=>`<span class="tag s-rev">${esc(w)}</span>`).join('')}<br><span class="mu">Các từ này đã được đưa vào lịch ôn tập (spaced repetition).</span></p>`:''}
+${n<s.n?'<p class="mu">Một số câu không tạo được nên phiên kết thúc sớm.</p>':''}
+<button class="btn" onclick="setup('${s.m}')">Chơi lại</button> <button class="btn g" onclick="home()">Về trang chủ / đổi level</button></div>`}
+addEventListener('keydown',e=>{if(!ses||!ses.q||ses.dead||$('#md'))return;
+if(e.key=='Enter'){if(ses.lock){e.preventDefault();$('#nx')?.click()}else if(ses.q.type=='rec')chkRec()}
+else if(!ses.lock&&ses.q.type!='rec'&&/^[1-4]$/.test(e.key))ans(+e.key-1)});
+
+home();
+</script>
 </body></html>
